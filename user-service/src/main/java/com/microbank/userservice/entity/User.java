@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users")
+@Table(name="user_profiles")
 @Entity
 public class User {
 

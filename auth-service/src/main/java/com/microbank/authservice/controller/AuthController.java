@@ -3,6 +3,7 @@ package com.microbank.authservice.controllers;
 import com.microbank.authservice.auth.LoginRequest;
 import com.microbank.authservice.auth.RegisterRequest;
 import com.microbank.authservice.dtos.AuthResponse;
+import com.microbank.authservice.dtos.RegisterRequestDTO;
 import com.microbank.authservice.services.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
-        return ResponseEntity.status(201).body(authService.register(registerRequest));
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
+        return ResponseEntity.status(201).body(authService.register(registerRequestDTO));
     }
 }

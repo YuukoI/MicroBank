@@ -23,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Page<UserDTO>> findAllPaged(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "15") int size,
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Page<UserDTO>> search(
             @RequestParam String keyword,
             @RequestParam(defaultValue = "0") int page,
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         return userService.findById(id)
                 .map(user -> ResponseEntity.ok(toDTO(user)))
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO updatedUser) {
 
         User user = userService.findById(id).orElse(null);
@@ -99,7 +99,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         if (userService.findById(id).isEmpty()) {
             return ResponseEntity.notFound().build();

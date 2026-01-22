@@ -4,6 +4,7 @@ package com.microbank.authservice.services;
 import com.microbank.authservice.auth.LoginRequest;
 import com.microbank.authservice.auth.RegisterRequest;
 import com.microbank.authservice.dtos.AuthResponse;
+import com.microbank.authservice.dtos.RegisterRequestDTO;
 import com.microbank.authservice.entities.Role;
 import com.microbank.authservice.entities.User;
 import com.microbank.authservice.kafka.UserCreatedEvent;
@@ -50,14 +51,19 @@ public class AuthServiceImp implements AuthService {
     }
 
     @Override
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequestDTO request) {
 
-        String hashedPassword = passwordEncoder.encode(request.getPassword());
+        User user = User.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.USER)
+                .build();
+
+        userService.saveUser(user);
 
         userCreatedProducer.sendUserCreated(
                 new UserCreatedEvent(
                         request.getUsername(),
-                        hashedPassword,
                         request.getFirstname(),
                         request.getLastname(),
                         request.getCountry(),
@@ -65,18 +71,12 @@ public class AuthServiceImp implements AuthService {
                 )
         );
 
-        UserDetails userDetails = org.springframework.security.core.userdetails.User
-                .withUsername(request.getUsername())
-                .password("dummy")
-                .authorities("ROLE_" + Role.USER.name())
-                .build();
-
-        String token = jwtService.getToken(userDetails);
+        String token = jwtService.getToken(user);
 
         return AuthResponse.builder()
                 .token(token)
-                .username(request.getUsername())
-                .role(Role.USER.name())
+                .username(user.getUsername())
+                .role(user.getRole().name())
                 .expiresAt(jwtService.getExpirationFromToken(token))
                 .build();
     }
