@@ -1,9 +1,6 @@
-package com.microbank.authservice.repositories;
+package com.microbank.authservice.repository;
 
-import com.microbank.authservice.entities.Role;
-import com.microbank.authservice.entities.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.microbank.authservice.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

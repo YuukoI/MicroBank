@@ -1,6 +1,6 @@
-package com.microbank.userservice.dtos;
+package com.microbank.userservice.dto;
 
-import com.microbank.userservice.entities.Role;
+import com.microbank.userservice.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

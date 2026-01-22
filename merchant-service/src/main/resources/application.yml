@@ -1,0 +1,60 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: merchant-service
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/merchant_db
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: kafka:9092
+
+    listener:
+      observation-enabled: true
+
+    consumer:
+      group-id: merchant-service
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.microbank.merchant_service.kafka.WalletTransactionEvent
+        spring.json.trusted.packages: "*"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      type: b3, w3c
+
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+
+logging:
+  level:
+    org.springframework.kafka: INFO
+  pattern:
+    level: "%5p [${spring.application.name},traceId=%X{traceId},spanId=%X{spanId}]"
+
+jwt:
+  secret: ${JWT_SECRET_KEY}

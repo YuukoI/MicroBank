@@ -1,10 +1,7 @@
-package com.microbank.authservice.services;
+package com.microbank.authservice.service;
 
-import com.microbank.authservice.entities.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.microbank.authservice.entity.User;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserService {

@@ -1,4 +1,4 @@
-package com.microbank.userservice.services;
+package com.microbank.userservice.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

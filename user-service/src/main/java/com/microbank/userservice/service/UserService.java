@@ -1,6 +1,6 @@
-package com.microbank.userservice.services;
+package com.microbank.userservice.service;
 
-import com.microbank.userservice.entities.User;
+import com.microbank.userservice.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

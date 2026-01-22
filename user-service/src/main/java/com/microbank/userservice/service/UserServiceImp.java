@@ -1,12 +1,12 @@
-package com.microbank.userservice.services;
+package com.microbank.userservice.service;
 
-import com.microbank.userservice.entities.Role;
-import com.microbank.userservice.repositories.UserRepository;
+import com.microbank.userservice.entity.Role;
+import com.microbank.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.microbank.userservice.entities.User;
+import com.microbank.userservice.entity.User;
 
 import java.util.List;
 import java.util.Optional;

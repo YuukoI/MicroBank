@@ -1,9 +1,8 @@
-package com.microbank.authservice.services;
+package com.microbank.authservice.service;
 
 import com.microbank.authservice.auth.LoginRequest;
-import com.microbank.authservice.auth.RegisterRequest;
-import com.microbank.authservice.dtos.AuthResponse;
-import com.microbank.authservice.dtos.RegisterRequestDTO;
+import com.microbank.authservice.dto.AuthResponse;
+import com.microbank.authservice.dto.RegisterRequestDTO;
 
 public interface AuthService {
 

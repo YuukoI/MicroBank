@@ -6,9 +6,9 @@ spring:
     name: user-service
 
   datasource:
-    url: jdbc:mysql://localhost:3306/microbank
-    username: root
-    password: root
+    url: jdbc:mysql://mysql:3306/user_db
+    username: admin
+    password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -17,7 +17,11 @@ spring:
     show-sql: true
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
+
+    listener:
+      observation-enabled: true
+
     consumer:
       group-id: user-service-group
       auto-offset-reset: earliest
@@ -25,7 +29,32 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+        spring.json.use.type.headers: false
         spring.json.value.default.type: com.microbank.userservice.kafka.UserCreatedEvent
 
 jwt:
-  secret: ${jwt_secret_key}
+  secret: ${JWT_SECRET_KEY}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: always
+
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      type: b3, w3c
+
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},traceId=%X{traceId},spanId=%X{spanId}]"

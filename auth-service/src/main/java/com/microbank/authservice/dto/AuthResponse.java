@@ -1,4 +1,4 @@
-package com.microbank.authservice.dtos;
+package com.microbank.authservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

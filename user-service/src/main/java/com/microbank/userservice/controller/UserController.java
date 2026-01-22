@@ -1,8 +1,8 @@
-package com.microbank.userservice.controllers;
+package com.microbank.userservice.controller;
 
-import com.microbank.userservice.dtos.UserDTO;
-import com.microbank.userservice.entities.User;
-import com.microbank.userservice.services.UserService;
+import com.microbank.userservice.dto.UserDTO;
+import com.microbank.userservice.entity.User;
+import com.microbank.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

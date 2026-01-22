@@ -1,10 +1,9 @@
-package com.microbank.authservice.controllers;
+package com.microbank.authservice.controller;
 
 import com.microbank.authservice.auth.LoginRequest;
-import com.microbank.authservice.auth.RegisterRequest;
-import com.microbank.authservice.dtos.AuthResponse;
-import com.microbank.authservice.dtos.RegisterRequestDTO;
-import com.microbank.authservice.services.AuthService;
+import com.microbank.authservice.dto.AuthResponse;
+import com.microbank.authservice.dto.RegisterRequestDTO;
+import com.microbank.authservice.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

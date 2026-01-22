@@ -1,4 +1,4 @@
-package com.microbank.userservice.entities;
+package com.microbank.userservice.entity;
 
 public enum Role {
 

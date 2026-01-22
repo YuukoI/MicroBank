@@ -1,6 +1,6 @@
 package com.microbank.authservice.config;
 
-import com.microbank.authservice.services.UserService;
+import com.microbank.authservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

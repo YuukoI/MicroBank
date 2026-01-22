@@ -6,9 +6,9 @@ spring:
     name: auth-service
 
   datasource:
-    url: jdbc:mysql://localhost:3306/microbank
-    username: root
-    password: root
+    url: jdbc:mysql://mysql:3306/auth_db
+    username: admin
+    password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -17,10 +17,34 @@ spring:
     show-sql: true
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
+
+    template:
+      observation-enabled: true
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
+management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info
+
+    tracing:
+      sampling:
+        probability: 1.0
+      propagation:
+        type: b3, w3c
+
+    zipkin:
+      tracing:
+        endpoint: http://zipkin:9411/api/v2/spans
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},traceId=%X{traceId},spanId=%X{spanId}]"
+
 jwt:
-  secret: ${jwt_secret_key}
+  secret: ${JWT_SECRET_KEY}

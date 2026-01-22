@@ -1,19 +1,16 @@
-package com.microbank.authservice.services;
+package com.microbank.authservice.service;
 
 
 import com.microbank.authservice.auth.LoginRequest;
-import com.microbank.authservice.auth.RegisterRequest;
-import com.microbank.authservice.dtos.AuthResponse;
-import com.microbank.authservice.dtos.RegisterRequestDTO;
-import com.microbank.authservice.entities.Role;
-import com.microbank.authservice.entities.User;
+import com.microbank.authservice.dto.AuthResponse;
+import com.microbank.authservice.dto.RegisterRequestDTO;
+import com.microbank.authservice.entity.Role;
+import com.microbank.authservice.entity.User;
 import com.microbank.authservice.kafka.UserCreatedEvent;
 import com.microbank.authservice.kafka.UserCreatedProducer;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

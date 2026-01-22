@@ -1,4 +1,4 @@
-package com.microbank.userservice.services;
+package com.microbank.userservice.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

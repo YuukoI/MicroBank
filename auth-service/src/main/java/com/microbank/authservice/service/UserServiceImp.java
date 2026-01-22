@@ -1,9 +1,9 @@
-package com.microbank.authservice.services;
+package com.microbank.authservice.service;
 
-import com.microbank.authservice.repositories.UserRepository;
+import com.microbank.authservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.microbank.authservice.entities.User;
+import com.microbank.authservice.entity.User;
 import java.util.Optional;
 
 @Service

@@ -1,4 +1,4 @@
-package com.microbank.userservice.entities;
+package com.microbank.userservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

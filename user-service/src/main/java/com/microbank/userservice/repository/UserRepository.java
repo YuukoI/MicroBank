@@ -1,11 +1,11 @@
-package com.microbank.userservice.repositories;
+package com.microbank.userservice.repository;
 
-import com.microbank.userservice.entities.User;
+import com.microbank.userservice.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.microbank.userservice.entities.Role;
+import com.microbank.userservice.entity.Role;
 
 import java.util.Optional;
 
