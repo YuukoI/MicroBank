@@ -7,6 +7,9 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.servers.Server;
+
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
@@ -16,9 +19,12 @@ public class SwaggerConfig {
         final String securitySchemeName = "bearerAuth";
         return new OpenAPI()
                 .info(new Info()
-                        .title("Merchant Service API")
+                        .title("Transaction Service API")
                         .version("1.0")
-                        .description("CRUD Merchant Service API"))
+                        .description("Transaction Service API"))
+                .servers(List.of(
+                        new Server().url("http://localhost:8080").description("API Gateway")
+                ))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new Components()
                         .addSecuritySchemes(securitySchemeName,

@@ -22,7 +22,7 @@ public class TransactionListener {
 
     @KafkaListener(topics = "user-created-topic", groupId = "transaction-service")
     public void handleUserCreatedEvent(com.microbank.transaction_service.kafka.UserCreatedEvent event) {
-        log.info("Recibido UserCreatedEvent con traceId: {}", tracer.currentSpan().context().traceId());
+        log.info("Received UserCreatedEvent with traceId: {}", tracer.currentSpan().context().traceId());
 
         Transaction tx = new Transaction();
         tx.setTraceId(tracer.currentSpan().context().traceId());

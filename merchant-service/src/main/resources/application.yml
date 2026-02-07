@@ -1,5 +1,6 @@
 server:
   port: 8082
+  forward-headers-strategy: framework
 
 spring:
   application:
@@ -33,6 +34,17 @@ spring:
         spring.json.use.type.headers: false
         spring.json.value.default.type: com.microbank.merchant_service.kafka.WalletTransactionEvent
         spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+springdoc:
+  api-docs:
+    path: /microbank/merchant/v3/api-docs
+  swagger-ui:
+    path: /microbank/merchant/swagger-ui.html
 
 management:
   endpoints:

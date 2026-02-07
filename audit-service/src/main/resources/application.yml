@@ -1,6 +1,49 @@
 server:
-  port: 8085
+  port: 8084
+  forward-headers-strategy: framework
 
 spring:
   application:
     name: audit-service
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/audit_db
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  kafka:
+    consumer:
+      group-id: audit-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "*"
+        spring.json.value.default.type: "com.microbank.audit_service.dto.AuditMessage"
+        spring.json.use.type.headers: false
+    listener:
+      observation-enabled: true
+
+springdoc:
+  api-docs:
+    path: /microbank/audit/v3/api-docs
+  swagger-ui:
+    path: /microbank/audit/swagger-ui.html
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://zipkin:9411/api/v2/spans"
+
+jwt:
+  secret: "${JWT_SECRET_KEY}"

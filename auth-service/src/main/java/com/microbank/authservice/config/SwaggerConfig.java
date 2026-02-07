@@ -4,6 +4,9 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.servers.Server;
+
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
@@ -14,6 +17,9 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Auth Service API")
                         .version("1.0")
-                        .description("User authentication and registration API"));
+                        .description("User authentication and registration API"))
+                .servers(List.of(
+                        new Server().url("http://localhost:8080").description("API Gateway")
+                ));
     }
 }

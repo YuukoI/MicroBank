@@ -27,7 +27,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getServletPath().startsWith("/microbank/auth");
+        String path = request.getRequestURI();
+
+        return request.getMethod().equals("OPTIONS")
+                || path.contains("/v3/api-docs")
+                || path.contains("/swagger-ui")
+                || path.contains("/microbank/auth");
     }
 
     @Override
@@ -71,4 +76,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
+
 }

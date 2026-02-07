@@ -1,5 +1,6 @@
 server:
   port: 8085
+  forward-headers-strategy: framework
 
 spring:
   application:
@@ -26,6 +27,12 @@ spring:
     consumer:
       group-id: transaction-service
       auto-offset-reset: earliest
+
+springdoc:
+  api-docs:
+    path: /microbank/transactions/v3/api-docs
+  swagger-ui:
+    path: /microbank/transactions/swagger-ui.html
 
 management:
   endpoints:

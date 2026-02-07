@@ -31,7 +31,7 @@ public class TransactionServiceImp implements TransactionService {
     }
 
     @Override
-    public Page<Transaction> searchByKeyword(String keyword, Pageable pageable) {
+    public Page<Transaction> searchTransactionByKeyword(String keyword, Pageable pageable) {
         return transactionRepository.findByKeyword(keyword, pageable);
     }
 

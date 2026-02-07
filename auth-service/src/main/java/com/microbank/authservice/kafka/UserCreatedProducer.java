@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class UserCreatedProducer {
 
 
-    private final KafkaTemplate<String, UserCreatedEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
     private final ObservationRegistry observationRegistry;
 
     private static final String TOPIC = "user-created-topic";

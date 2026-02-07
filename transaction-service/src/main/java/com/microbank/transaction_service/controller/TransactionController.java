@@ -59,7 +59,7 @@ public class TransactionController {
         Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Transaction> transactions = transactionService.searchByKeyword(keyword, pageable);
+        Page<Transaction> transactions = transactionService.searchTransactionByKeyword(keyword, pageable);
 
         if (transactions.isEmpty()) {
             return ResponseEntity.noContent().build();

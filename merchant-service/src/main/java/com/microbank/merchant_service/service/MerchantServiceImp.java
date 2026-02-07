@@ -1,5 +1,6 @@
 package com.microbank.merchant_service.service;
 
+import com.microbank.merchant_service.dtos.AuditMessage;
 import com.microbank.merchant_service.entity.Merchant;
 import com.microbank.merchant_service.entity.MerchantStatus;
 import com.microbank.merchant_service.entity.MerchantTransaction;
@@ -7,12 +8,15 @@ import com.microbank.merchant_service.entity.TransactionStatus;
 import com.microbank.merchant_service.kafka.WalletTransactionEvent;
 import com.microbank.merchant_service.repository.MerchantRepository;
 import com.microbank.merchant_service.repository.MerchantTransactionRepository;
+import io.micrometer.tracing.Tracer;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +26,8 @@ public class MerchantServiceImp implements MerchantService {
 
     private final MerchantRepository merchantRepository;
     private final MerchantTransactionRepository merchantTransactionRepository;
+    private final Tracer tracer;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public List<Merchant> findAll() {
@@ -107,6 +113,26 @@ public class MerchantServiceImp implements MerchantService {
 
         merchantRepository.save(merchant);
         merchantTransactionRepository.save(tx);
+
+        sendAudit("MERCHANT_PAYMENT_PROCESSED", "SYSTEM/KAFKA",
+                "Balance updated for merchant: " + merchant.getName() + " due to payment " + event.getReference());
+    }
+
+    private void sendAudit(String action, String username, String details) {
+        String traceId = (tracer.currentSpan() != null)
+                ? tracer.currentSpan().context().traceId()
+                : "N/A";
+
+        AuditMessage audit = AuditMessage.builder()
+                .serviceName("merchant-service")
+                .action(action)
+                .username(username)
+                .details(details)
+                .traceId(traceId)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        kafkaTemplate.send("audit-topic", audit);
     }
 
 }

@@ -14,6 +14,6 @@ public interface TransactionService {
 
     Optional<Transaction> getTransactionById(Long id);
 
-    Page<Transaction> searchByKeyword(String keyword, Pageable pageable);
+    Page<Transaction> searchTransactionByKeyword(String keyword, Pageable pageable);
 
 }

@@ -1,5 +1,6 @@
 server:
-  port: 8080
+  port: 8086
+  forward-headers-strategy: framework
 
 spring:
   application:
@@ -18,29 +19,32 @@ spring:
 
   kafka:
     bootstrap-servers: kafka:9092
-
     template:
       observation-enabled: true
-
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
+springdoc:
+  api-docs:
+    path: /microbank/auth/v3/api-docs
+  swagger-ui:
+    path: /microbank/auth/swagger-ui.html
+  override-with-generic-response: true
+
 management:
-    endpoints:
-      web:
-        exposure:
-          include: health,info
-
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      type: b3, w3c
+  zipkin:
     tracing:
-      sampling:
-        probability: 1.0
-      propagation:
-        type: b3, w3c
-
-    zipkin:
-      tracing:
-        endpoint: http://zipkin:9411/api/v2/spans
+      endpoint: http://zipkin:9411/api/v2/spans
 
 logging:
   pattern:
